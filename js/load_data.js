@@ -33,7 +33,7 @@ function objetoLibro(libro) {
 
 function plantillaHTML(data) {
     const plantilla = `
-  <div class="col-lg-2 mb-2 text-center">
+  <div class="col-lg-2 mb-2 text-center libro">
     <div class="card border-0 rounded-0">
       <div class="card-image">
         <img src="${data['Image-URL-M']}" alt="book-img" class="img-fluid">
@@ -51,3 +51,27 @@ function plantillaHTML(data) {
   </div>`;
     return plantilla;
 }
+
+const boton = document.querySelector(".btn");
+boton.addEventListener("click", buscar);
+
+function buscar() {
+  const ingresoTexto = document.getElementById("newsletter1");
+  const texto = ingresoTexto.value.trim().toLowerCase();
+  const libros = document.querySelectorAll('.libro');
+    libros.forEach(libro => {
+    const titulo = libro.querySelector('.card-title').textContent.toLowerCase();
+    console.log(titulo)
+    const autor = libro.querySelector('.meta-date').textContent.toLowerCase();
+    console.log(autor)
+    const anio = libro.querySelector('.meta-category').textContent.toLowerCase();
+    console.log(anio)
+
+    if (!texto || titulo.includes(texto) || autor.includes(texto) || anio.includes(texto)) {
+      libro.style.display = 'block';
+    } else {
+      libro.style.display = 'none';
+    }
+  });
+}
+
